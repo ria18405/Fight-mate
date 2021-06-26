@@ -33,43 +33,28 @@ def worker(input_q, output_q, cap_params, frame_processed):
             flag=0
 
             if(scores[0]>0.2):
-                #print(" boxes ",boxes[0])
                 if(boxes[0][1]>0.35 and boxes[0][3]<0.65):
-                    #print("X0 ",boxes[0][1]," X3",boxes[0][3])
                     flag=1
                     print("Centre")
 
                 if(flag==0):
                     if(boxes[0][3]<0.6 and boxes[0][2]<0.6):
-                        #print("X3 ",boxes[0][3]," Y3 ",boxes[0][2])
                         flag=1
                         print("2nd Quadrant")
 
                 
                 if(flag==0):
                     if(boxes[0][1]>0.5 and boxes[0][2]<0.6):
-                        #print("X0 ",boxes[0][1]," Y3 ",boxes[0][2])
                         flag=1
                         print("1st Quadrant")
 
                 if(flag==0):
                     if(boxes[0][0]>0.4 and boxes[0][3]<0.6):
-                        #print("Y0 ",boxes[0][0]," X3 ",boxes[0][3]):
                         flag=1
                         print("3rd Quadrant")
 
                 if(flag==0):
                     print("4th Quadrant")
-
-
-
-
-
-
-            
-        #    for i in range(1,2000000):
-         #       i=i
-
 
             # draw bounding boxes
             detector_utils.draw_box_on_image(
@@ -80,7 +65,6 @@ def worker(input_q, output_q, cap_params, frame_processed):
             output_q.put(frame)
             frame_processed += 1
         else:
-            print("yoyo")
             output_q.put(frame)
     sess.close()
 
@@ -202,7 +186,6 @@ if __name__ == '__main__':
                     print("frames processed: ", index, "elapsed time: ",
                           elapsed_time, "fps: ", str(int(fps)))
         else:
-            # print("video end")
             break
     elapsed_time = (datetime.datetime.now() - start_time).total_seconds()
     fps = num_frames / elapsed_time
